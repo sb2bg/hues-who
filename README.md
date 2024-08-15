@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hues Who?
 
-## Getting Started
+![Hues Who? Favicon](src/app/favicon.ico)
 
-First, run the development server:
+[Play Hues Who?](https://hues-who.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## About
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Hues Who? is an engaging and educational flag guessing game that challenges players to identify countries based on the colors in their flags. This interactive web application is built using React and Next.js, providing a smooth and responsive user experience.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Color-based Guessing**: Players are presented with the colors of a randomly selected flag and must guess the corresponding countries.
+- **Dynamic Gameplay**: The game tracks guessed countries and provides real-time feedback on the player's progress.
+- **Auto-suggestions**: As players type, the game offers country name suggestions to assist with spelling and accuracy.
+- **Visual Feedback**: Incorrect guesses are met with detailed feedback, showing correct, missing, and extraneous colors.
+- **Multiple Game States**: Players can start new rounds, give up to see answers, or complete the challenge by guessing all countries.
+- **Responsive Design**: The game is designed to work seamlessly across various device sizes.
 
-## Learn More
+## How to Play
 
-To learn more about Next.js, take a look at the following resources:
+1. The game presents you with a set of colors from a randomly selected flag.
+2. Type in your guesses for countries that might have those colors in their flags.
+3. If your guess is correct, the country will be added to your list of correct guesses.
+4. If incorrect, you'll receive feedback on how your guess compares to the target flag.
+5. Continue guessing until you've found all matching countries or choose to give up.
+6. Start a new round to challenge yourself with a different flag!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technology Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- React
+- Next.js
+- TypeScript
+- Tailwind CSS
 
-## Deploy on Vercel
+## Installation and Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/hues-who.git
+   ```
+2. Navigate to the project directory:
+   ```
+   cd hues-who
+   ```
+3. Install dependencies:
+   ```
+   npm install
+   ```
+4. Run the development server:
+   ```
+   npm run dev
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to play the game locally.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributing
+
+Contributions to Hues Who? are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
