@@ -44,12 +44,22 @@ Hues Who? is an engaging and educational flag guessing game that challenges play
    cd hues-who
    ```
 3. Install dependencies:
+   - NPM
    ```
    npm install
    ```
+   - Yarn
+   ```
+   yarn
+   ```
 4. Run the development server:
+   - NPM
    ```
    npm run dev
+   ```
+   - Yarn
+   ```
+   yarn dev
    ```
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to play the game locally.
 
