@@ -567,7 +567,7 @@
     "id": "kp",
     "name": "North Korea",
     "continent": "Asia",
-    "colors": ["red", "blue", "black", "white"]
+    "colors": ["red", "blue", "white"]
   },
   {
     "id": "xk",
