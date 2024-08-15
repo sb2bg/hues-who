@@ -1,6 +1,6 @@
 # Hues Who?
 
-![Hues Who? Favicon](src/app/favicon.ico)
+![Hues Who? Favicon](https://raw.githubusercontent.com/sb2bg/hues-who/main/src/app/favicon.ico)
 
 [Play Hues Who?](https://hues-who.vercel.app)
 
