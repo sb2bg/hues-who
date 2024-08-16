@@ -267,7 +267,7 @@
     "id": "dj",
     "name": "Djibouti",
     "continent": "Africa",
-    "colors": ["green", "light blue", "white"]
+    "colors": ["red", "green", "light blue", "white"]
   },
   {
     "id": "dk",
