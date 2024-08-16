@@ -285,7 +285,7 @@
     "id": "do",
     "name": "Dominican Republic",
     "continent": "North America",
-    "colors": ["red", "green", "blue", "white"]
+    "colors": ["red", "blue", "white"]
   },
   {
     "id": "dz",
@@ -303,7 +303,7 @@
     "id": "ee",
     "name": "Estonia",
     "continent": "Europe",
-    "colors": ["light blue", "black", "white"]
+    "colors": ["blue", "black", "white"]
   },
   {
     "id": "eg",
@@ -447,7 +447,7 @@
     "id": "ht",
     "name": "Haiti",
     "continent": "North America",
-    "colors": ["red", "green", "blue", "white"]
+    "colors": ["red", "blue", "white"]
   },
   {
     "id": "hu",
@@ -717,7 +717,7 @@
     "id": "mr",
     "name": "Mauritania",
     "continent": "Africa",
-    "colors": ["yellow", "green"]
+    "colors": ["red", "yellow", "green"]
   },
   {
     "id": "mt",
