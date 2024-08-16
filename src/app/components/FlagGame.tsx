@@ -26,6 +26,7 @@ const FlagGame = () => {
   } | null>(null);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [allCountries, setAllCountries] = useState<string[]>([]);
+  const [isEasyMode, setIsEasyMode] = useState(false);
 
   useEffect(() => {
     setAllCountries(getAllCountries());
@@ -44,7 +45,6 @@ const FlagGame = () => {
     setSuggestions([]);
   };
 
-  // find if an array includes a value case-insensitively, then return the value from the array or null
   const includesCaseInsensitive = (arr: string[], value: string) => {
     return arr.find((item) => item.toLowerCase() === value.toLowerCase());
   };
@@ -60,7 +60,10 @@ const FlagGame = () => {
       setFeedback(null);
       setSuggestions([]);
 
-      if (guessedCountries.length + 1 === matchingCountries.length) {
+      if (
+        isEasyMode ||
+        guessedCountries.length + 1 === matchingCountries.length
+      ) {
         setGameState("finished");
       }
     } else {
@@ -88,7 +91,7 @@ const FlagGame = () => {
       const filtered = allCountries.filter((country) =>
         country.toLowerCase().startsWith(value.toLowerCase())
       );
-      setSuggestions(filtered.slice(0, 5)); // Limit to 5 suggestions
+      setSuggestions(filtered.slice(0, 5));
     } else {
       setSuggestions([]);
     }
@@ -97,6 +100,49 @@ const FlagGame = () => {
   const selectCountry = (country: string) => {
     setUserGuess(country);
     setSuggestions([]);
+  };
+
+  const toggleGameMode = () => {
+    setIsEasyMode(!isEasyMode);
+    startNewRound();
+  };
+
+  const getColorName = (color: string) => {
+    const colorMap: { [key: string]: string } = {
+      red: "#FF0000",
+      blue: "#0000FF",
+      "light blue": "#ADD8E6",
+      green: "#008000",
+      yellow: "#FFFF00",
+      white: "#FFFFFF",
+      black: "#000000",
+      orange: "#FFA500",
+      purple: "#800080",
+      brown: "#A52A2A",
+      pink: "#FFC0CB",
+      gray: "#808080",
+      maroon: "#800000",
+    };
+    return colorMap[color.toLowerCase()] || color;
+  };
+
+  const getTextColor = (color: string) => {
+    const colorMap: { [key: string]: string } = {
+      red: "#FFFFFF",
+      blue: "#FFFFFF",
+      "light blue": "#000000",
+      green: "#FFFFFF",
+      yellow: "#000000",
+      white: "#000000",
+      black: "#FFFFFF",
+      orange: "#000000",
+      purple: "#FFFFFF",
+      brown: "#FFFFFF",
+      pink: "#000000",
+      gray: "#FFFFFF",
+      maroon: "#FFFFFF",
+    };
+    return colorMap[color.toLowerCase()] || "#000000";
   };
 
   if (!currentFlag)
@@ -131,20 +177,41 @@ const FlagGame = () => {
             Guess the country by its flag colors!
           </h1>
 
+          <div className="mt-4 flex items-center">
+            <span className="mr-2 text-sm text-gray-600">Game Mode</span>
+            <button
+              onClick={toggleGameMode}
+              className={`px-3 py-1 text-sm font-medium rounded-md ${
+                isEasyMode
+                  ? "bg-green-500 text-white"
+                  : "bg-blue-500 text-white"
+              }`}
+            >
+              {isEasyMode ? "Easy" : "Normal"}
+            </button>
+            <span className="ml-2 text-sm text-gray-600">
+              {isEasyMode
+                ? "Guess one country"
+                : "Guess ALL countries with these colors"}
+            </span>
+          </div>
+
           <div className="mt-4">
-            <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
-              Colors in the flag:
-            </h2>
-            <div className="mt-1 flex flex-wrap gap-2">
+            <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide flex items-center flex-wrap gap-2">
+              Colors in the flag
               {currentFlag.colors.map((color, index) => (
                 <span
                   key={index}
-                  className="px-2 py-1 rounded-full text-xs font-medium bg-gray-200 text-gray-800 capitalize"
+                  className="px-2 py-1 rounded-full text-xs font-medium capitalize inline-flex items-center border border-black"
+                  style={{
+                    backgroundColor: getColorName(color),
+                    color: getTextColor(color),
+                  }}
                 >
                   {color}
                 </span>
               ))}
-            </div>
+            </h2>
           </div>
 
           <div className="mt-4 text-sm text-gray-500">
@@ -197,7 +264,8 @@ const FlagGame = () => {
           {gameState === "finished" && (
             <div className="mt-6">
               <p className="text-sm text-gray-500">
-                Congratulations! You have guessed all countries.
+                Congratulations! You have guessed{" "}
+                {isEasyMode ? "a country" : "all countries"}.
               </p>
               <button
                 onClick={startNewRound}
