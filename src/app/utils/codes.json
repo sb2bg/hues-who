@@ -15,7 +15,7 @@
     "id": "af",
     "name": "Afghanistan",
     "continent": "Asia",
-    "colors": ["red", "orange", "green", "black", "white"]
+    "colors": ["red", "green", "black", "white"]
   },
   {
     "id": "ag",
