@@ -43,6 +43,7 @@ export const getFlagByCountry = (countryName: string) => {
       countryName: country.name,
       countryCode: country.id,
       colors: country.colors,
+      continent: country.continent,
     };
   }
 

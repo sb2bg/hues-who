@@ -17,6 +17,7 @@ import {
   FaGamepad,
   FaRedo,
   FaArrowRight,
+  FaGlobeAmericas,
 } from "react-icons/fa";
 
 const FlagGame = () => {
@@ -38,12 +39,45 @@ const FlagGame = () => {
   const [isEasyMode, setIsEasyMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // New state variables for continent tracking
+  const [continentStats, setContinentStats] = useState<{
+    [key: string]: { total: number; found: number };
+  }>({});
+  const [countriesByContinent, setCountriesByContinent] = useState<{
+    [key: string]: string[];
+  }>({});
+
   const startNewRound = useCallback(() => {
     setIsLoading(true);
     const newFlag = getRandomCountry();
     const newMatchingCountries = getCountriesWithColors(newFlag.colors);
+
+    // Initialize continent data
+    const continentMap: { [key: string]: string[] } = {};
+    const stats: { [key: string]: { total: number; found: number } } = {};
+
+    newMatchingCountries.forEach((country) => {
+      const flag = getFlagByCountry(country);
+      if (flag && flag.continent) {
+        if (!continentMap[flag.continent]) {
+          continentMap[flag.continent] = [];
+        }
+        continentMap[flag.continent].push(country);
+      }
+    });
+
+    // Initialize stats for each continent
+    Object.keys(continentMap).forEach((continent) => {
+      stats[continent] = {
+        total: continentMap[continent].length,
+        found: 0,
+      };
+    });
+
     setCurrentFlag(newFlag);
     setMatchingCountries(newMatchingCountries);
+    setCountriesByContinent(continentMap);
+    setContinentStats(stats);
     setGuessedCountries([]);
     setGameState("playing");
     setFeedback(null);
@@ -71,6 +105,22 @@ const FlagGame = () => {
 
     if (match && !includesCaseInsensitive(guessedCountries, userGuess)) {
       setGuessedCountries([...guessedCountries, match]);
+
+      // Update continent stats
+      const flag = getFlagByCountry(match);
+      if (flag && flag.continent) {
+        setContinentStats((prevStats) => {
+          const newStats = { ...prevStats };
+          if (newStats[flag.continent]) {
+            newStats[flag.continent] = {
+              ...newStats[flag.continent],
+              found: newStats[flag.continent].found + 1,
+            };
+          }
+          return newStats;
+        });
+      }
+
       setUserGuess("");
       setFeedback(null);
       setSuggestions([]);
@@ -277,6 +327,46 @@ const FlagGame = () => {
             </div>
           </div>
 
+          {/* Continent Completion Statistics */}
+          {gameState === "playing" && (
+            <div className="mb-6 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <FaGlobeAmericas className="mr-2 text-indigo-500" />
+                Completion by Continent
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {Object.keys(continentStats).map((continent) => (
+                  <div
+                    key={continent}
+                    className="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-md"
+                  >
+                    <span className="text-sm font-medium text-gray-700">
+                      {continent}
+                    </span>
+                    <div className="flex items-center">
+                      <span className="text-sm font-semibold text-indigo-600 mr-2">
+                        {continentStats[continent].found}/
+                        {continentStats[continent].total}
+                      </span>
+                      <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-indigo-500 rounded-full"
+                          style={{
+                            width: `${
+                              (continentStats[continent].found /
+                                continentStats[continent].total) *
+                              100
+                            }%`,
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {gameState === "playing" && (
             <form onSubmit={handleGuess} className="mb-8">
               <div className="flex relative">
@@ -402,29 +492,35 @@ const FlagGame = () => {
                 Correct Guesses ({guessedCountries.length})
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                {guessedCountries.map((country, index) => (
-                  <div
-                    key={index}
-                    className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200"
-                  >
-                    <div className="aspect-video relative">
-                      <Image
-                        src={`/flags/${
-                          getFlagByCountry(country)?.countryCode
-                        }.svg`}
-                        alt={`Flag of ${country}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
+                {guessedCountries.map((country, index) => {
+                  const flag = getFlagByCountry(country);
+                  return (
+                    <div
+                      key={index}
+                      className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200"
+                    >
+                      <div className="aspect-video relative">
+                        <Image
+                          src={`/flags/${flag?.countryCode}.svg`}
+                          alt={`Flag of ${country}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+                      <div className="p-2">
+                        <p className="text-center text-gray-800 font-medium text-sm">
+                          {country}
+                        </p>
+                        {flag?.continent && (
+                          <p className="text-center text-xs text-gray-500">
+                            {flag.continent}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                    <div className="p-2">
-                      <p className="text-center text-gray-800 font-medium text-sm">
-                        {country}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
