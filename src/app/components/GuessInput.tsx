@@ -18,26 +18,26 @@ export const GuessInput = ({
 }: GuessInputProps) => {
   return (
     <form onSubmit={onSubmit} className="mb-8">
-      <div className="flex relative">
+      <div className="flex relative group">
         <div className="relative flex-grow">
           <input
             type="text"
             value={value}
             onChange={onChange}
-            className="block w-full px-4 py-3 border border-gray-300 rounded-l-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm text-black placeholder-gray-400"
-            placeholder="Enter a country name..."
+            className="block w-full px-6 py-4 border-2 border-gray-200 rounded-l-2xl shadow-lg focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm text-black placeholder-gray-400 bg-white/80 backdrop-blur-sm transition-all duration-300 group-hover:shadow-xl"
+            placeholder="✨ Enter a country name..."
             autoComplete="off"
           />
           {suggestions.length > 0 && (
-            <ul className="absolute z-50 left-0 right-0 mt-1 bg-white shadow-xl max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm text-black">
+            <ul className="absolute z-[100] left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm shadow-2xl max-h-60 rounded-2xl py-2 text-base ring-1 ring-black/10 overflow-auto focus:outline-none sm:text-sm text-black border border-gray-200">
               {suggestions.map((country, index) => (
                 <li
                   key={index}
-                  className="cursor-pointer select-none relative py-2.5 pl-4 pr-9 hover:bg-indigo-50 transition duration-150"
+                  className="cursor-pointer select-none relative py-3 px-4 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 transition-all duration-200 mx-2 rounded-xl"
                   onClick={() => onSelectSuggestion(country)}
                 >
                   <div className="flex items-center">
-                    <span className="font-medium text-gray-900 truncate">
+                    <span className="font-semibold text-gray-900 truncate">
                       {country}
                     </span>
                   </div>
@@ -48,7 +48,7 @@ export const GuessInput = ({
         </div>
         <button
           type="submit"
-          className="inline-flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-r-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200"
+          className="inline-flex items-center justify-center px-6 py-4 border-2 border-transparent text-sm font-bold rounded-r-2xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
         >
           <FaArrowRight className="mr-2" />
           Guess
