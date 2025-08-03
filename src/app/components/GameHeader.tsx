@@ -2,7 +2,7 @@ import { FaFlag } from "react-icons/fa";
 
 export const GameHeader = () => {
   return (
-    <div className="bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 p-8 text-white relative overflow-hidden">
+    <div className="bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 p-8 text-white relative overflow-hidden rounded-t-3xl">
       <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent"></div>
       <div className="relative z-10">
         <div className="flex items-center justify-between">
